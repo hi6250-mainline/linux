@@ -38,9 +38,12 @@ properties:
         items:
           - const: hisilicon,hi6220-hikey
           - const: hisilicon,hi6220
+
       - description: Hi6250 based boards.
         items:
           - const: hisilicon,hi6250
+          - const: huawei,figo
+
       - description: HiP01 based boards.
         items:
           - const: hisilicon,hip01-ca9x2
