@@ -1,0 +1,53 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Device tree for Huawei Mediapad T5
+ *
+ * Copyright (C) 2026, Tildeguy (tildeguy@mainlining.org)
+ */
+
+/dts-v1/;
+
+#include <dt-bindings/gpio/gpio.h>
+
+#include "hi6250.dtsi"
+
+/ {
+	model = "Huawei Mediapad T5";
+	compatible = "huawei,agassi2", "hisilicon,hi6250";
+	chassis-type = "handset";
+
+	aliases {
+
+	};
+
+	chosen {
+		bootargs = "earlycon=tty0 console=tty0";
+
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		stdout-path = "framebuffer0";
+
+		framebuffer0: framebuffer@5d000000 {
+			compatible = "simple-framebuffer";
+			reg = <0 0x5d000000 0 (1200 * 1920 * 4)>;
+			width = <1200>;
+			height = <1920>;
+			stride = <(1200 * 4)>;
+			format = "a8r8g8b8";
+			status = "okay";
+		};
+	};
+
+	reserved-memory {
+		ramoops@34800000 {
+			compatible = "ramoops";
+			reg = <0x0 0x34800000 0x0 0x100000>;
+			record-size = <0x20000>;
+			pmsg-size = <0x20000>;
+			console-size = <0x80000>;
+			ftrace-size = <0x00000>;
+		};  
+	};
+};
