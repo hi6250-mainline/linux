@@ -43,6 +43,7 @@ properties:
         items:
           - const: hisilicon,hi6250
           - const: huawei,figo
+          - const: huawei,agassi2
 
       - description: HiP01 based boards.
         items:
