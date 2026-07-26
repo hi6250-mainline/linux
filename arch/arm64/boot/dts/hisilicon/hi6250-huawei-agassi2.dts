@@ -7,8 +7,6 @@
 
 /dts-v1/;
 
-#include <dt-bindings/gpio/gpio.h>
-
 #include "hi6250.dtsi"
 
 / {
@@ -39,8 +37,13 @@
 			status = "okay";
 		};
 	};
-
+	
 	reserved-memory {
+		logo_buffer: memory@5d000000 {
+			reg = <0 0x5d000000 0 0x300000>;
+			no-map;
+		};
+
 		ramoops@34800000 {
 			compatible = "ramoops";
 			reg = <0x0 0x34800000 0x0 0x100000>;
@@ -49,5 +52,15 @@
 			console-size = <0x80000>;
 			ftrace-size = <0x00000>;
 		};  
+	};
+
+	memory@400000 {
+		device_type = "memory";
+		reg = <0x00 0x00400000 0x00 0x7fc00000>,
+		      <0x00 0x80000000 0x00 0x40000000>;
+	};
+
+	soc {
+
 	};
 };
