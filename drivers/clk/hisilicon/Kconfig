@@ -51,6 +51,13 @@ config COMMON_CLK_HI6220
 	default ARCH_HISI
 	help
 	  Build the Hisilicon Hi6220 clock driver based on the common clock framework.
+	
+config COMMON_CLK_HI6250
+	bool "Hi6220 Clock Driver"
+	depends on ARCH_HISI || COMPILE_TEST
+	default ARCH_HISI
+	help
+	  Build the Hisilicon Hi6250 common clocks.
 
 config RESET_HISI
 	bool "HiSilicon Reset Controller Driver"
@@ -66,6 +73,14 @@ config STUB_CLK_HI6220
 	default COMMON_CLK_HI6220
 	help
 	  Build the Hisilicon Hi6220 stub clock driver.
+
+config STUB_CLK_HI6250
+	bool "Hi6250 Stub Clock Driver" if EXPERT
+	depends on (COMMON_CLK_HI6250 || COMPILE_TEST)
+	depends on MAILBOX
+	default COMMON_CLK_HI6250
+	help
+	  Build the Hisilicon Hi6250 stub clock driver.
 
 config STUB_CLK_HI3660
 	bool "Hi3660 Stub Clock Driver" if EXPERT
