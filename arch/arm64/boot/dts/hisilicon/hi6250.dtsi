@@ -12,10 +12,12 @@
 	#size-cells = <2>;
 
 	psci {
-		compatible = "arm,psci";
+		compatible = "arm,psci-0.2";
 		method = "smc";
-		cpu_suspend = <0xc4000001>;
 		cpu_off = <0x84000002>;
+		system_off = <0x84000008>;
+		system_reset = <0x84000009>;
+		cpu_suspend = <0xc4000001>;
 		cpu_on = <0xc4000003>;
 	};
 
@@ -287,7 +289,7 @@
 	gic: interrupt-controller@e82b0000 {
 		compatible = "arm,cortex-a9-gic";
 		reg = <0x0 0xe82b1000 0x0 0x1000>,	/* GICD */
-		<0x0 0xe82b2000 0x0 0x1000>;	/* GICC */
+			<0x0 0xe82b2000 0x0 0x1000>;	/* GICC */
 		#address-cells = <0>;
 		#interrupt-cells = <3>;
 		interrupt-controller;
