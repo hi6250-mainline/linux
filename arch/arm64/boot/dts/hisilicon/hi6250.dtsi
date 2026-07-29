@@ -518,6 +518,54 @@
 				<GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>;
 			#mbox-cells = <3>;
 		};
+
+		range: gpio-range {
+			#pinctrl-single,gpio-range-cells = <3>;
+		};
+		
+		pmx0: pinmux@e896c000 {
+			compatible = "pinconf-single";
+			reg = <0x0 0xe896c000 0x0 0x228>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#pinctrl-cells = <1>;
+			#gpio-range-cells = <3>;
+			pinctrl-single,register-width = <32>;
+			pinctrl-single,function-mask = <7>;
+			pinctrl-single,gpio-range = <&range 6 2 0 &range 34 2 0>;
+		};
+
+		pmx1: pinmux@fff11000 {
+			compatible = "pinconf-single";
+			reg = <0x0 0xe896c800 0x0 0xac>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#pinctrl-cells = <1>;
+			#gpio-range-cells = <3>;
+			pinctrl-single,register-width = <32>;
+			pinctrl-single,function-mask = <7>;
+			pinctrl-single,gpio-range = <&range 5 2 0 &range 9 2 0>;
+		};
+
+		pmx2: pinmux@e896c800 {
+			compatible = "pinconf-single";
+			reg = <0x0 0xe896c800 0x0 0x234>;
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#pinctrl-cells = <1>;
+			pinctrl-single,register-width = <32>;
+		};
+		
+		pmx3: pinmux@fff11800 {
+			compatible = "pinconf-single";
+			reg = <0x0 0xfff11800 0x0 0xbc>;
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#pinctrl-cells = <1>;
+			pinctrl-single,register-width = <32>;
+		};
 	};
 };
 
