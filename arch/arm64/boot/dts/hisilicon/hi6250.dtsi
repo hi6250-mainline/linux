@@ -476,7 +476,7 @@
 			#clock-cells = <1>;
 		};
 
-		pmu_ctrl: pmu_ctrl@fff34000 { /* unused */
+		pmu_ctrl: pmu_ctrl@fff34000 {
 			compatible = "hisilicon,hi6250-pmuctrl", "syscon";
 			reg = <0x0 0xfff34000 0x0 0x1000>;
 			#clock-cells = <1>;
@@ -488,7 +488,7 @@
 			#clock-cells = <1>;
 		};
 
-		crg_ctrl: crg_ctrl@fff35000 { /* unused */
+		crg_ctrl: crg_ctrl@fff35000 {
 			compatible = "hisilicon,hi6250-crgctrl", "syscon";
 			reg = <0x0 0xfff35000 0x0 0x1000>;
 			#clock-cells = <1>;
@@ -499,7 +499,7 @@
 			reg = <0x0 0xffd7e000 0x0 0x1000>;
 		};
 
-		pctrl: pctrl@e8a09000 { /* unused */
+		pctrl: pctrl@e8a09000 {
 			compatible = "syscon";
 			reg = <0x0 0xe8a09000 0x0 0x2000>;
 		};
@@ -579,6 +579,37 @@
 			clocks = <&sys_ctrl HI6250_PCLK_AO_GPIO3>,
 				<&ao_ctrl HI6250_APB_PCLK>;
 			clock-names = "pclk_ao_gpio3", "apb_pclk";
+		};
+
+		usb_ahbif: usbahbif@ff200000 {
+			compatible = "syscon";
+			reg = <0x0 0xff200000 0x0 0x40000>;
+		};
+
+		usb_phy: usbphy {
+			compatible = "hisilicon,hi6250-usb-phy";
+			hisilicon,pericrg-syscon = <&crg_ctrl>;
+			hisilicon,pctrl-syscon = <&pctrl>;
+			hisilicon,ahbif-syscon = <&usb_ahbif>;
+			hisilicon,eye-pattern = <0x059066DB>;
+			hisilicon,host-eye-pattern = <0x059066DB>;
+			mode-gpios = <&gpio25 0 0>;
+			#phy-cells = <0>;
+		};
+
+		usb: usb@ff100000 {
+			compatible = "hisilicon,hi6220-usb", "snps,dwc2";
+			reg = <0x0 0xff100000 0x0 0x40000>;
+			phys = <&usb_phy>;
+			phy-names = "usb2-phy";
+			clocks = <&pmu_ctrl HI6250_CLK_GATE_ABB_192>;
+			clock-names = "clk_gate_abb_192";
+			dr_mode = "peripheral";
+			g-rx-fifo-size = <512>;
+			g-np-tx-fifo-size = <128>;
+			g-tx-fifo-size = <128 128 128 128 128 128 128 128
+				16  16  16  16  16  16  16>;
+			interrupts = <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
 		};
 	};
 };
