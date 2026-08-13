@@ -13,11 +13,12 @@
 
 #define HI6250_APB_PCLK 0
 #define HI6250_OSC32KHZ 1
-// #define HI6250_CLKIN_SYS 0
+#define HI6250_CLKIN_SYS 2
+#define HI6250_CLK_PPLL0 3
+#define HI6250_CLK_PPLL1 4
+#define HI6250_AO_NR_CLKS 5
 // #define HI6250_CLKIN_REF 1
 // #define HI6250_CLK_FLL_SRC 2
-// #define HI6250_CLK_PPLL0 3
-// #define HI6250_CLK_PPLL1 4
 // #define HI6250_CLK_PPLL2 5
 // #define HI6250_CLK_PPLL3 6
 // #define HI6250_CLK_MODEM_BASE 7
@@ -41,17 +42,16 @@
 // #define HI6250_CLK_FPGA_100M 27
 // #define HI6250_CLK_FPGA_160M 28
 // #define HI6250_CLK_FPGA_150M 29
-#define HI6250_AO_NR_CLKS 2
 
 
 // clk in pmuctrl
 
-// #define HI6250_CLK_GATE_ABB_192 0
+#define HI6250_CLK_GATE_ABB_192 0
+#define HI6250_PMUCTRL_NR_CLKS 1
 // #define HI6250_CLK_PMU32KA 1
 // #define HI6250_CLK_PMU32KB 2
 // #define HI6250_CLK_PMU32KC 3
 // #define HI6250_CLK_PMUAUDIOCLK 4
-#define HI6250_PMUCTRL_NR_CLKS 0
 
 
 // clk in pctrl (stub)
@@ -65,6 +65,9 @@
 
 // clk in sctrl
 
+#define HI6250_CLK_AOBUS_DIV 0
+#define HI6250_PCLK_AO_GPIO3 1
+#define HI6250_SCTRL_NR_CLKS 2
 // #define HI6250_CLK_FACTOR_TCXO 0
 // #define HI6250_CLK_180M 1
 // #define HI6250_AUTODIV_SOCP 2
@@ -146,12 +149,16 @@
 // #define HI6250_CLKMUX_CLKOUT1 78
 // #define HI6250_CLK_ASP_PLL_SEL 79
 // #define HI6250_CLK_MMBUF_SW 80
-#define HI6250_SCTRL_NR_CLKS 0
 
 
 // clk in crgctrl
 
-// #define HI6250_CLK_SYSBUS_DIV 0
+#define HI6250_CLK_ABB_USB 0
+#define HI6250_CLK_SYSBUS_DIV 1
+#define HI6250_HCLK_USB2OTG 2
+#define HI6250_CLK_DBGBUS_DIV 3
+#define HI6250_CLK_SYSBUS_MUX 4
+#define HI6250_CRGCTRL_NR_CLKS 5
 // #define HI6250_CLK_WD0_HIGH 1
 // #define HI6250_CLK_AT 2
 // #define HI6250_CLK_TRACK 3
@@ -161,7 +168,6 @@
 // #define HI6250_CLK_A53HPM_DIV 7
 // #define HI6250_CLK_UART0_FAC 8
 // #define HI6250_CLKFAC_USB2PHY 9
-// #define HI6250_CLK_ABB_USB 10
 // #define HI6250_CLK_BLPWM 11
 // #define HI6250_CLK_GPS_REF 12
 // #define HI6250_CLK_FAC_ISPSN 13
@@ -375,6 +381,5 @@
 // #define HI6250_CLKMUX_ISPFUNC 221
 // #define HI6250_CLK_MUX_ISPSN 222
 // #define HI6250_CLK_RXDCFG_MUX 223
-#define HI6250_CRGCTRL_NR_CLKS 0
 
 #endif
