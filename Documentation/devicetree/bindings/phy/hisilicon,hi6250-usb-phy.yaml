@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/phy/hisilicon,hi6250-usb-phy.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Hisilicon Hi6250 USB PHY
+
+maintainers:
+  - Tildeguy <tildeguy@mainlining.org>
+
+properties:
+  compatible:
+    const: hisilicon,hi6250-usb-phy
+
+  '#phy-cells':
+    const: 0
+
+  hisilicon,pericrg-syscon:
+    description: Phandle to the peripheral CRG syscon.
+    $ref: /schemas/types.yaml#/definitions/phandle
+
+  hisilicon,pctrl-syscon:
+    description: Phandle to the pin controller syscon.
+    $ref: /schemas/types.yaml#/definitions/phandle
+
+  hisilicon,ahbif-syscon:
+    description: Phandle to the USB AHB interface syscon.
+    $ref: /schemas/types.yaml#/definitions/phandle
+
+  hisilicon,eye-pattern:
+    description: USB PHY eye pattern tuning value.
+    $ref: /schemas/types.yaml#/definitions/uint32
+
+  hisilicon,host-eye-pattern:
+    description: USB host PHY eye pattern tuning value.
+    $ref: /schemas/types.yaml#/definitions/uint32
+
+  mode-gpios:
+    description: GPIO used to select the PHY mode.
+    maxItems: 1
+
+additionalProperties: false
+
+examples:
+  - |
+    usbphy {
+      compatible = "hisilicon,hi6250-usb-phy";
+      hisilicon,pericrg-syscon = <&crg_ctrl>;
+      hisilicon,pctrl-syscon = <&pctrl>;
+      hisilicon,ahbif-syscon = <&usb_ahbif>;
+      hisilicon,eye-pattern = <0x059066DB>;
+      hisilicon,host-eye-pattern = <0x059066DB>;
+      mode-gpios = <&gpio25 0 0>;
+      #phy-cells = <0>;
+    };
