@@ -53,7 +53,7 @@ config COMMON_CLK_HI6220
 	  Build the Hisilicon Hi6220 clock driver based on the common clock framework.
 	
 config COMMON_CLK_HI6250
-	bool "Hi6220 Clock Driver"
+	bool "Hi6250 Clock Driver"
 	depends on ARCH_HISI || COMPILE_TEST
 	default ARCH_HISI
 	help
