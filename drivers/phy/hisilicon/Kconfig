@@ -13,6 +13,17 @@ config PHY_HI6220_USB
 
 	  To compile this driver as a module, choose M here.
 
+config PHY_HI6250_USB
+	tristate "hi6250 USB PHY support"
+	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
+	depends on HAS_IOMEM
+	select GENERIC_PHY
+	select MFD_SYSCON
+	help
+	  Enable this to support the HISILICON HI6250 USB PHY.
+
+	  To compile this driver as a module, choose M here.
+
 config PHY_HI3660_USB
 	tristate "hi3660 USB PHY support"
 	depends on (ARCH_HISI && ARM64) || COMPILE_TEST
