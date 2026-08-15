@@ -3,6 +3,7 @@
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/clock/hi6250-clock.h>
+#include <dt-bindings/gpio/gpio.h>
 
 / {
 	compatible = "hisilicon,hi6250";
@@ -619,6 +620,13 @@
 			clocks = <&crg_ctrl HI6250_PCLK_WD0_HIGH>,
 				 <&ao_ctrl HI6250_APB_PCLK>;
 			clock-names = "wdog_clk", "apb_pclk";
+		};
+
+		reboot: hi6250-reboot {
+			compatible = "hisilicon,hi6250-reboot";
+			hisilicon,pmuctrl-syscon = <&pmu_ctrl>;
+			hisilicon,sysctrl-syscon = <&sys_ctrl>;
+			hisilicon,powerhold-gpios = <&gpio25 4 GPIO_ACTIVE_LOW>;
 		};
 	};
 };
