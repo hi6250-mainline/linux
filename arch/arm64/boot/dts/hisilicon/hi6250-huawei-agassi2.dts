@@ -64,3 +64,11 @@
 
 	};
 };
+
+&pmx2 {
+	status = "ok";
+};
+
+&pmx3 {
+	status = "ok";
+};

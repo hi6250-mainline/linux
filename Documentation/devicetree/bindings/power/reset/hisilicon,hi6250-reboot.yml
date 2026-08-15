@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/power/reset/hisilicon,hi6250-reboot.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Hi6250 reboot and power-off driver
+
+maintainers:
+  - Tildeguy <tildeguy@mailining.org>
+
+description: >
+  The Hi6250 reboot and power-off driver provides system restart and
+  power-off support using the Hi6250 PMU and system controller registers.
+  The driver uses syscon phandles to access the PMU and system controller
+  registers and a GPIO to control the power-hold signal during power-off.
+
+allOf:
+  - $ref: restart-handler.yaml#
+
+properties:
+  compatible:
+    const: hisilicon,hi6250-reboot
+
+  hisilicon,pmuctrl-syscon:
+    $ref: /schemas/types.yaml#/definitions/phandle
+    description: >
+      Phandle to the Hi6250 PMU control syscon used by the reboot and
+      power-off driver.
+
+  hisilicon,sysctrl-syscon:
+    $ref: /schemas/types.yaml#/definitions/phandle
+    description: >
+      Phandle to the Hi6250 system controller syscon used by the reboot
+      and power-off driver.
+
+  hisilicon,powerhold-gpios:
+    description: >
+      GPIO controlling the power-hold signal. The driver deasserts this
+      signal when powering off the system.
+    maxItems: 1
+
+required:
+  - compatible
+  - hisilicon,pmuctrl-syscon
+  - hisilicon,sysctrl-syscon
+  - hisilicon,powerhold-gpios
+
+additionalProperties: false
+
+examples:
+  - |
+    hi6250-reboot {
+      compatible = "hisilicon,hi6250-reboot";
+      hisilicon,pmuctrl-syscon = <&pmu_ctrl>;
+      hisilicon,sysctrl-syscon = <&sys_ctrl>;
+      hisilicon,powerhold-gpios = <&gpio25 4 GPIO_ACTIVE_LOW>;
+    };
+
