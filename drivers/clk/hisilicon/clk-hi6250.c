@@ -317,6 +317,7 @@ static const struct hisi_gate_clock hi6250_crgctrl_gate_clks[] = {
 
 static const struct hisi_gate_clock hi6250_crgctrl_gate_sep_clks[] = {
   { HI6250_HCLK_USB2OTG, "hclk_usb2otg", "clk_dbgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x40, 1, 0, },
+  { HI6250_PCLK_WD0_HIGH, "pclk_wd0_high", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x20, 16, 0, },
 //   { HI6250_PCLK_GPIO0, "pclk_gpio0", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 0, 0, },
 //   { HI6250_PCLK_GPIO1, "pclk_gpio1", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 1, 0, },
 //   { HI6250_PCLK_GPIO2, "pclk_gpio2", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 2, 0, },
@@ -339,7 +340,6 @@ static const struct hisi_gate_clock hi6250_crgctrl_gate_sep_clks[] = {
 //   { HI6250_PCLK_GPIO19, "pclk_gpio19", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 19, 0, },
 //   { HI6250_PCLK_GPIO20, "pclk_gpio20", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 20, 0, },
 //   { HI6250_PCLK_GPIO21, "pclk_gpio21", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x10, 21, 0, },
-//   { HI6250_PCLK_WD0_HIGH, "pclk_wd0_high", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x20, 16, 0, },
 //   { HI6250_PCLK_WD0, "pclk_wd0", "clk_wd0_mux", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x0, -1, 0, },
 //   { HI6250_PCLK_WD1, "pclk_wd1", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x20, 17, 0, },
 //   { HI6250_HCLK_ISP, "hclk_isp", "clk_cfgbus_div", CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED, 0x30, 24, 0, },
@@ -433,11 +433,11 @@ static const struct hisi_gate_clock hi6250_crgctrl_gate_sep_clks[] = {
 
 
 static const struct hi6220_divider_clock hi6250_crgctrl_divider_clks[] = {
-//   { HI6250_CLK_CFGBUS_DIV, "clk_cfgbus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 0, 2, 0x30000, },
+  { HI6250_CLK_CFGBUS_DIV, "clk_cfgbus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 0, 2, 0x30000, },
+  { HI6250_CLK_DBGBUS_DIV, "clk_dbgbus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 12, 1, 0x10000000, },
 //   { HI6250_CLK_MMC0BUS_DIV, "clk_mmc0bus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 2, 1, 0x40000, },
 //   { HI6250_CLK_MMC1BUS_DIV, "clk_mmc1bus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 3, 1, 0x80000, },
-  { HI6250_CLK_DBGBUS_DIV, "clk_dbgbus_div", "clk_sysbus_div", CLK_SET_RATE_PARENT, 0xec, 12, 1, 0x10000000, },
-//   // { HI6250_CLK_TIMESTP_DIV, "clk_timestp_div", "clk_dbgbus_div", CLK_SET_RATE_PARENT, 0x128, 22, 3, 0x1c000000000, },
+//   { HI6250_CLK_TIMESTP_DIV, "clk_timestp_div", "clk_dbgbus_div", CLK_SET_RATE_PARENT, 0x128, 22, 3, 0x1c000000000, },
 //   { HI6250_CLK_PERF_DIV, "clk_perf_div", "clk_dbgbus_div", CLK_SET_RATE_PARENT, 0xd0, 14, 2, 0xc0000000, },
 //   { HI6250_PCLKDIV_DBG, "pclkdiv_dbg", "clk_cssys_div", CLK_SET_RATE_PARENT, 0x128, 0, 1, 0x10000, },
 //   { HI6250_CLKDIV_TRACK, "clkdiv_track", "clk_cssys_div", CLK_SET_RATE_PARENT, 0x128, 12, 2, 0x30000000, },
