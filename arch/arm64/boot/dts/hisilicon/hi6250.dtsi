@@ -2,7 +2,7 @@
 
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
-#include <dt-bindings/thermal/thermal.h>
+#include <dt-bindings/clock/hi6250-clock.h>
 
 / {
 	compatible = "hisilicon,hi6250";
@@ -69,7 +69,7 @@
 			next-level-cache = <&CACHE0_L2>;
 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
 			/* capacity-dmips-mhz = <592>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER0>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER0>;
 			operating-points-v2 = <&cluster0_opp>;
 			#cooling-cells = <2>;
 			dynamic-power-coefficient = <110>;
@@ -83,7 +83,7 @@
 			next-level-cache = <&CACHE0_L2>;
 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
 			/* capacity-dmips-mhz = <592>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER0>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER0>;
 			operating-points-v2 = <&cluster0_opp>;
 			#cooling-cells = <2>;
 		};
@@ -96,7 +96,7 @@
 			next-level-cache = <&CACHE0_L2>;
 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
 			/* capacity-dmips-mhz = <592>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER0>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER0>;
 			operating-points-v2 = <&cluster0_opp>;
 			#cooling-cells = <2>;
 		};
@@ -109,7 +109,7 @@
 			next-level-cache = <&CACHE0_L2>;
 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
 			/* capacity-dmips-mhz = <592>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER0>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER0>;
 			operating-points-v2 = <&cluster0_opp>;
 			#cooling-cells = <2>;
 		};
@@ -122,7 +122,7 @@
 			next-level-cache = <&CACHE1_L2>;
 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_1>;
 			/* capacity-dmips-mhz = <1024>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER1>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER1>;
 			operating-points-v2 = <&cluster1_opp>;
 			#cooling-cells = <2>;
 			dynamic-power-coefficient = <550>;
@@ -136,7 +136,7 @@
 			next-level-cache = <&CACHE1_L2>;
 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_1>;
 			/* capacity-dmips-mhz = <1024>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER1>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER1>;
 			operating-points-v2 = <&cluster1_opp>;
 			#cooling-cells = <2>;
 		};
@@ -149,7 +149,7 @@
 			next-level-cache = <&CACHE1_L2>;
 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_1>;
 			/* capacity-dmips-mhz = <1024>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER1>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER1>;
 			operating-points-v2 = <&cluster1_opp>;
 			#cooling-cells = <2>;
 		};
@@ -162,7 +162,7 @@
 			next-level-cache = <&CACHE1_L2>;
 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_1>;
 			/* capacity-dmips-mhz = <1024>; */
-			/* clocks = <&stub_clock HI3660_CLK_STUB_CLUSTER1>; */
+			clocks = <&stub_clock HI6250_CLK_STUB_CLUSTER1>;
 			operating-points-v2 = <&cluster1_opp>;
 			#cooling-cells = <2>;
 		};
@@ -456,30 +456,65 @@
 		#address-cells = <2>;
 		#size-cells = <2>;
 		ranges;
-		
-		osc32k: osc32khz {
-			ranges;
-			compatible = "fixed-clock";
-			#clock-cells = <0>;
-			clock-frequency = <32768>;
-			clock-output-names = "osc32khz";
-		};
-	
-		pclk: apb_pclk {
-			ranges;
-			compatible = "fixed-clock";
-			#clock-cells = <0>;
-			clock-frequency = <20000000>;
-			clock-output-names = "apb_pclk";
-		};
 
 		timer0: timer@fff14000 {
 			compatible = "arm,sp804";
 			reg = <0x0 0xfff14000 0x0 0x1000>;
 			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>,
 			<GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&osc32k &osc32k &pclk>;
+			clocks = <&ao_ctrl HI6250_OSC32KHZ>,
+			<&ao_ctrl HI6250_OSC32KHZ>,
+			<&ao_ctrl HI6250_APB_PCLK>;
 			clock-names = "osc32khz", "osc32khz", "apb_pclk";
+		};
+
+		ao_ctrl: ao_ctrl@0 {
+			compatible = "hisilicon,hi6250-aoctrl", "syscon";
+			reg = <0x0 0x00000000 0x0 0xffffffff>;
+			#clock-cells = <1>;
+		};
+
+		pmu_ctrl: pmu_ctrl@fff34000 { /* unused */
+			compatible = "hisilicon,hi6250-pmuctrl", "syscon";
+			reg = <0x0 0xfff34000 0x0 0x1000>;
+			#clock-cells = <1>;
+		};
+
+		sys_ctrl: sys_ctrl@fff0a000 {
+			compatible = "hisilicon,hi6250-sysctrl", "syscon";
+			reg = <0x0 0xfff0a000 0x0 0x1000>;
+			#clock-cells = <1>;
+		};
+
+		crg_ctrl: crg_ctrl@fff35000 { /* unused */
+			compatible = "hisilicon,hi6250-crgctrl", "syscon";
+			reg = <0x0 0xfff35000 0x0 0x1000>;
+			#clock-cells = <1>;
+		};
+
+		iomcu_ctrl: iomcu_ctrl@ffd7e000 { /* unused */
+			compatible = "syscon";
+			reg = <0x0 0xffd7e000 0x0 0x1000>;
+		};
+
+		pctrl: pctrl@e8a09000 { /* unused */
+			compatible = "syscon";
+			reg = <0x0 0xe8a09000 0x0 0x2000>;
+		};
+
+		stub_clock: stub_clock {
+			compatible = "hisilicon,hi6250-stub-clk";
+			hisilicon,hi6250-sys-ctrl = <&sys_ctrl>;
+			#clock-cells = <1>;
+			mboxes = <&mailbox 13 3 0>;
+		};
+
+		mailbox: mailbox@e896b000 { /* not sure */
+			compatible = "hisilicon,hi3660-mbox";
+			reg = <0x0 0xe896b000 0x0 0x1000>;
+			interrupts = <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>,
+				<GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>;
+			#mbox-cells = <3>;
 		};
 	};
 };
