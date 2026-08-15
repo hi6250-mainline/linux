@@ -566,6 +566,20 @@
 			#pinctrl-cells = <1>;
 			pinctrl-single,register-width = <32>;
 		};
+
+		gpio25: gpio@fff0e000 {
+			compatible = "arm,pl061", "arm,primecell";
+			reg = <0 0xfff0e000 0 0x1000>;
+			interrupts = <0 109 0x4>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			gpio-ranges = <&pmx1 0 21 4 &pmx1 5 25 3>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			clocks = <&sys_ctrl HI6250_PCLK_AO_GPIO3>,
+				<&ao_ctrl HI6250_APB_PCLK>;
+			clock-names = "pclk_ao_gpio3", "apb_pclk";
+		};
 	};
 };
 
